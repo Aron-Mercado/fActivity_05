@@ -10,6 +10,8 @@ function UpdateProfile() {
 
   const navigate = useNavigate();
 
+  //“Run this once when the page loads”
+  // Fetch protected data (requires login)
   useEffect(() => {
   fetch("http://localhost/php/act05_API/check.php", {
     credentials: "include"

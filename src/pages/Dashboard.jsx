@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 function Dashboard() {
   const [users, setUsers] = useState([]);
 
+
+  // “Run this once when the page loads”
+  // Fetch protected data (requires login)
   useEffect(() => {
     fetch("http://localhost/php/act05_API/users.php", {credentials: "include"})
       .then(res => res.json())
       .then(data => {     
         if (data.error) {
           // AUTO REDIRECT IF NOT LOGGED IN
+          // PHP decides if user is authenticated
+          // React redirects if not
           alert("You must login first");
           window.location.href = "/";
         } else {
@@ -23,6 +28,10 @@ return (
       <h2 className="text-2xl font-semibold mb-4">Users List</h2>
 
       <ul className="space-y-2">
+        {/* 
+        API → array
+        .map() → display list
+        */}
           {users.map(user => (
             <li
               key={user.id}
@@ -34,6 +43,11 @@ return (
           ))}
       </ul>
 
+      {/* 
+        -> Calling PHP
+        -> Destroying session
+        -> Redirecting
+      */}
       <button
         onClick={() => {
           fetch("http://localhost/php/act05_API/logout.php", {
